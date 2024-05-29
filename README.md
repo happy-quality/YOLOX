@@ -8,7 +8,6 @@ cd YOLOX
 pip install -r requirements.txt
 pip install -v -e .
 pip install cython
-pip install 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
 ```
 div align="center"><img src="assets/logo.png" width="350"></div>
 <img src="assets/demo.png" >
