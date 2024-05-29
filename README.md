@@ -1,4 +1,16 @@
-<div align="center"><img src="assets/logo.png" width="350"></div>
+# Fork from [YOLOX](https://github.com/MegEngine/YOLOX).
+
+## Installation
+
+```shell
+git clone git@github.com:happy-quality/YOLOX.git --depth 1
+cd YOLOX
+pip install -r requirements.txt
+pip install -v -e .
+pip install cython
+pip install 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
+```
+div align="center"><img src="assets/logo.png" width="350"></div>
 <img src="assets/demo.png" >
 
 ## Introduction
