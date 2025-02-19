@@ -30,7 +30,9 @@ def make_parser():
     )
     parser.add_argument("--batch-size", type=int, default=1, help="batch size")
     parser.add_argument(
-        "--dynamic", action="store_true", help="whether the input shape should be dynamic or not"
+        "--dynamic",
+        action="store_true",
+        help="whether the input shape should be dynamic or not",
     )
     parser.add_argument("--no-onnxsim", action="store_true", help="use onnxsim or not")
     parser.add_argument(
@@ -50,9 +52,7 @@ def make_parser():
         nargs=argparse.REMAINDER,
     )
     parser.add_argument(
-        "--decode_in_inference",
-        action="store_true",
-        help="decode in inference or not"
+        "--decode_in_inference", action="store_true", help="decode in inference or not"
     )
 
     return parser
@@ -76,7 +76,7 @@ def main():
         ckpt_file = args.ckpt
 
     # load the model state dict
-    ckpt = torch.load(ckpt_file, map_location="cpu", weights_only=False)
+    ckpt = torch.load(ckpt_file, map_location="cpu")
 
     model.eval()
     if "model" in ckpt:
@@ -88,14 +88,15 @@ def main():
     logger.info("loading checkpoint done.")
     dummy_input = torch.randn(args.batch_size, 3, exp.test_size[0], exp.test_size[1])
 
-    torch.onnx._export(
+    torch.onnx.export(
         model,
         dummy_input,
         args.output_name,
         input_names=[args.input],
         output_names=[args.output],
-        dynamic_axes={args.input: {0: 'batch'},
-                      args.output: {0: 'batch'}} if args.dynamic else None,
+        dynamic_axes={args.input: {0: "batch"}, args.output: {0: "batch"}}
+        if args.dynamic
+        else None,
         opset_version=args.opset,
     )
     logger.info("generated onnx model named {}".format(args.output_name))
