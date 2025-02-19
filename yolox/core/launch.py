@@ -62,9 +62,9 @@ def launch(
         # TODO prctl in spawned processes
 
         if dist_url == "auto":
-            assert (
-                num_machines == 1
-            ), "dist_url=auto cannot work with distributed training."
+            assert num_machines == 1, (
+                "dist_url=auto cannot work with distributed training."
+            )
             port = _find_free_port()
             dist_url = f"tcp://127.0.0.1:{port}"
 
@@ -109,9 +109,9 @@ def _distributed_worker(
     args,
     timeout=DEFAULT_TIMEOUT,
 ):
-    assert (
-        torch.cuda.is_available()
-    ), "cuda is not available. Please check your installation."
+    assert torch.cuda.is_available(), (
+        "cuda is not available. Please check your installation."
+    )
     global_rank = machine_rank * num_gpus_per_machine + local_rank
     logger.info("Rank {} initialization finished.".format(global_rank))
     try:

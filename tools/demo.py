@@ -159,8 +159,11 @@ class Predictor(object):
             if self.decoder is not None:
                 outputs = self.decoder(outputs, dtype=outputs.type())
             outputs = postprocess(
-                outputs, self.num_classes, self.confthre,
-                self.nmsthre, class_agnostic=True
+                outputs,
+                self.num_classes,
+                self.confthre,
+                self.nmsthre,
+                class_agnostic=True,
             )
             logger.info("Infer time: {:.4f}s".format(time.time() - t0))
         return outputs, img_info
@@ -292,9 +295,9 @@ def main(exp, args):
     if args.trt:
         assert not args.fuse, "TensorRT model is not support model fusing!"
         trt_file = os.path.join(file_name, "model_trt.pth")
-        assert os.path.exists(
-            trt_file
-        ), "TensorRT model is not found!\n Run python3 tools/trt.py first!"
+        assert os.path.exists(trt_file), (
+            "TensorRT model is not found!\n Run python3 tools/trt.py first!"
+        )
         model.head.decode_in_inference = False
         decoder = model.head.decode_outputs
         logger.info("Using TensorRT to inference")
@@ -303,8 +306,14 @@ def main(exp, args):
         decoder = None
 
     predictor = Predictor(
-        model, exp, COCO_CLASSES, trt_file, decoder,
-        args.device, args.fp16, args.legacy,
+        model,
+        exp,
+        COCO_CLASSES,
+        trt_file,
+        decoder,
+        args.device,
+        args.fp16,
+        args.legacy,
     )
     current_time = time.localtime()
     if args.demo == "image":

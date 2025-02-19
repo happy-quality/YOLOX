@@ -18,7 +18,6 @@ from yolox.tools.train import make_parser
 
 
 class AssignVisualizer(Trainer):
-
     def __init__(self, exp: Exp, args):
         super().__init__(exp, args)
         self.batch_cnt = 0
@@ -57,7 +56,9 @@ class AssignVisualizer(Trainer):
 
 def assign_vis_parser():
     parser = make_parser()
-    parser.add_argument("--max-batch", type=int, default=1, help="max batch of images to visualize")
+    parser.add_argument(
+        "--max-batch", type=int, default=1, help="max batch of images to visualize"
+    )
     return parser
 
 

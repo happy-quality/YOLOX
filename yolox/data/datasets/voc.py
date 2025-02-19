@@ -21,7 +21,6 @@ from .voc_classes import VOC_CLASSES
 
 
 class AnnotationTransform(object):
-
     """Transforms a VOC annotation into a Tensor of bbox coords and label index
     Initilized with a dictionary lookup of classnames to indexes
 
@@ -80,7 +79,6 @@ class AnnotationTransform(object):
 
 
 class VOCDetection(CacheDataset):
-
     """
     VOC Detection Dataset Object
 
@@ -118,12 +116,10 @@ class VOCDetection(CacheDataset):
         self._annopath = os.path.join("%s", "Annotations", "%s.xml")
         self._imgpath = os.path.join("%s", "JPEGImages", "%s.jpg")
         self._classes = VOC_CLASSES
-        self.cats = [
-            {"id": idx, "name": val} for idx, val in enumerate(VOC_CLASSES)
-        ]
+        self.cats = [{"id": idx, "name": val} for idx, val in enumerate(VOC_CLASSES)]
         self.class_ids = list(range(len(VOC_CLASSES)))
         self.ids = list()
-        for (year, name) in image_sets:
+        for year, name in image_sets:
             self._year = year
             rootpath = os.path.join(self.root, "VOC" + year)
             for line in open(
@@ -145,7 +141,7 @@ class VOCDetection(CacheDataset):
             cache_dir_name=f"cache_{self.name}",
             path_filename=path_filename,
             cache=cache,
-            cache_type=cache_type
+            cache_type=cache_type,
         )
 
     def __len__(self):
@@ -292,7 +288,6 @@ class VOCDetection(CacheDataset):
         if output_dir is not None and not os.path.isdir(output_dir):
             os.mkdir(output_dir)
         for i, cls in enumerate(VOC_CLASSES):
-
             if cls == "__background__":
                 continue
 

@@ -20,7 +20,7 @@ from yolox.utils import (
     fuse_model,
     get_local_rank,
     get_model_info,
-    setup_logger
+    setup_logger,
 )
 
 
@@ -149,7 +149,9 @@ def main(exp, args, num_gpu):
     logger.info("Model Summary: {}".format(get_model_info(model, exp.test_size)))
     logger.info("Model Structure:\n{}".format(str(model)))
 
-    evaluator = exp.get_evaluator(args.batch_size, is_distributed, args.test, args.legacy)
+    evaluator = exp.get_evaluator(
+        args.batch_size, is_distributed, args.test, args.legacy
+    )
     evaluator.per_class_AP = True
     evaluator.per_class_AR = True
 
@@ -176,13 +178,13 @@ def main(exp, args, num_gpu):
         model = fuse_model(model)
 
     if args.trt:
-        assert (
-            not args.fuse and not is_distributed and args.batch_size == 1
-        ), "TensorRT model is not support model fusing and distributed inferencing!"
+        assert not args.fuse and not is_distributed and args.batch_size == 1, (
+            "TensorRT model is not support model fusing and distributed inferencing!"
+        )
         trt_file = os.path.join(file_name, "model_trt.pth")
-        assert os.path.exists(
-            trt_file
-        ), "TensorRT model is not found!\n Run tools/trt.py first!"
+        assert os.path.exists(trt_file), (
+            "TensorRT model is not found!\n Run tools/trt.py first!"
+        )
         model.head.decode_in_inference = False
         decoder = model.head.decode_outputs
     else:

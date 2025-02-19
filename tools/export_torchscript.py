@@ -14,7 +14,10 @@ from yolox.exp import get_exp
 def make_parser():
     parser = argparse.ArgumentParser("YOLOX torchscript deploy")
     parser.add_argument(
-        "--output-name", type=str, default="yolox.torchscript.pt", help="output name of models"
+        "--output-name",
+        type=str,
+        default="yolox.torchscript.pt",
+        help="output name of models",
     )
     parser.add_argument("--batch-size", type=int, default=1, help="batch size")
     parser.add_argument(
@@ -28,9 +31,7 @@ def make_parser():
     parser.add_argument("-n", "--name", type=str, default=None, help="model name")
     parser.add_argument("-c", "--ckpt", default=None, type=str, help="ckpt path")
     parser.add_argument(
-        "--decode_in_inference",
-        action="store_true",
-        help="decode in inference or not"
+        "--decode_in_inference", action="store_true", help="decode in inference or not"
     )
     parser.add_argument(
         "opts",
