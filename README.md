@@ -6,7 +6,7 @@
 git clone git@github.com:happy-quality/YOLOX.git --depth 1
 cd YOLOX
 pip install -r requirements.txt
-pip install -v -e .
+pip install --no-build-isolation -v -e .  # --no-build-isolation is required for the latest version unlike the original repo without it, installation will fail..
 pip install cython
 ```
 div align="center"><img src="assets/logo.png" width="350"></div>
