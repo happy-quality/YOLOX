@@ -13,6 +13,8 @@ tensorboard
 
 # verified versions
 # pycocotools corresponds to https://github.com/ppwwyyxx/cocoapi
-pycocotools>=2.0.2
+# 2025/7　version最新のpycocotoolsはYOLOX trainingが動かなくなる。
+# https://github.com/Megvii-BaseDetection/YOLOX/issues/1851
+pycocotools==2.0.8
 onnx>=1.13.0
 onnx-simplifier>=0.4.36
